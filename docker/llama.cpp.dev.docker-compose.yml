@@ -1,0 +1,21 @@
+version: "3"
+services:
+  llama.cpp.dev:
+    build: 
+      context: ./
+      dockerfile: llama.cpp.dev.Dockerfile
+    image: gongjiang/llama.cpp.dev
+    container_name: llama.cpp.dev
+    volumes:
+      - "../:/data/code/llama.cpp"
+      - "/D/work/opensource/pretrained-llms:/data/pretrained-llms"
+    restart: no
+    command: ["bash", "-c", "sleep 1000000000"]
+    working_dir: /data/code/llama.cpp
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+              driver: nvidia
+              count: all
